@@ -1,0 +1,45 @@
+<div class="container">
+
+  <h1>Formulário</h1>
+
+  <div class="alert alert-success" *ngIf="sucess">
+    Formulario Enviado com sucesso!
+  </div>
+
+  <div class="alert alert-danger" *ngIf="err">
+    Preencha todos os campos corretamente!
+  </div>
+
+
+  <form #usuarioForm="ngForm" (ngSubmit)="salvar(usuarioForm)" autocomplete="off">
+    <div class="mb-3">
+
+      <label class="form-label">Nome</label>
+      <input type="text" class="form-control" name="primeiroNome" ngModel required minlength="4" #nome="ngModel">
+
+      <div class="msgErr" *ngIf="nome.hasError('required') && nome.touched">*Informe um nome</div>
+      <div class="msgErr" *ngIf="nome.hasError('minlength') && nome.touched">*O nome deve ter no min 4 caracteres</div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">E-mail</label>
+      <input type="text" class="form-control" name="emailAddress" ngModel required email #email="ngModel">
+
+      <div class="msgErr" *ngIf="email.invalid && email.touched">*Informe um e-mail válido</div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Profissão</label>
+      <select class="form-control" name="profissao" ngModel required #profissao="ngModel">
+        <option value="">Selecione</option>
+        <option *ngFor="let profissao of profissoes">{{profissao}}</option>
+      </select>
+
+      <div class="msgErr" *ngIf="profissao.invalid && profissao.touched">*Informe uma profissão</div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Salvar</button>
+
+  </form>
+
+</div>
